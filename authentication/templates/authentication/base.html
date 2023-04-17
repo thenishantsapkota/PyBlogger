@@ -1,0 +1,113 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+  <meta charset="UTF-8" />
+  <meta http-equiv="X-UA-Compatible" content="IE=edge" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bulma@0.9.4/css/bulma.min.css" />
+  <script src="https://use.fontawesome.com/releases/v5.14.0/js/all.js"></script>
+  <script src="//cdn.jsdelivr.net/npm/alertifyjs@1.13.1/build/alertify.min.js"></script>
+  <!-- Markdown Start -->
+  <script src="https://cdn.jsdelivr.net/npm/marked/marked.min.js"></script>
+  <script src="https://cdn.jsdelivr.net/npm/turndown/dist/turndown.min.js"></script>
+  <!-- Markdown End -->
+  <link rel="stylesheet" href="//cdn.jsdelivr.net/npm/alertifyjs@1.13.1/build/css/alertify.min.css" />
+  <link rel="stylesheet" href="//cdn.jsdelivr.net/npm/alertifyjs@1.13.1/build/css/themes/default.min.css" />
+  <title>
+    {% block title %}
+
+    {% endblock %}
+  </title>
+</head>
+
+<body>
+  <style>
+    @import url('https://fonts.googleapis.com/css2?family=Poppins&display=swap');
+
+    body {
+      font: 'Poppins', sans-serif;
+    }
+  </style>
+  {% if 'login' not in request.path %}
+  {% if 'register' not in request.path %}
+  <nav class="navbar" role="navigation" aria-label="main navigation">
+    <div class="navbar-brand">
+      <a class="navbar-item" href="{% url 'home' %}">
+        <img src="https://cdn.snishant.com.np/r/Frame_8.png" width="114" height="28">
+      </a>
+
+      <a role="button" class="navbar-burger" aria-label="menu" aria-expanded="false" data-target="navbarBasicExample">
+        <span aria-hidden="true"></span>
+        <span aria-hidden="true"></span>
+        <span aria-hidden="true"></span>
+      </a>
+    </div>
+
+    <div id="navbarBasicExample" class="navbar-menu">
+      <div class="navbar-start">
+        <a class="navbar-item" href="{% url 'home' %}">
+          Home
+        </a>
+
+        <a class="navbar-item">
+          Profile
+        </a>
+      </div>
+      {% if request.user.is_authenticated %}
+      <div class="navbar-end">
+        <div class="navbar-item">
+          <div class="buttons">
+            <a class="button" href="{% url 'blog-create' %}">
+              <strong>Create a Blog</strong>
+            </a>
+            <a class="button is-primary" href="{% url 'logout' %}">
+              <strong>Logout</strong>
+            </a>
+          </div>
+        </div>
+      </div>
+      {% else %}
+      <div class="navbar-end">
+        <div class="navbar-item">
+          <div class="buttons">
+            <a class="button is-primary" href="{% url 'register' %}">
+              <strong>Sign up</strong>
+            </a>
+            <a class="button is-light" href="{% url 'login' %}">
+              Log in
+            </a>
+          </div>
+        </div>
+      </div>
+      {% endif %}
+    </div>
+  </nav>
+  {% endif %}
+  {% endif %}
+  {% block content %}
+
+  {% endblock %}
+  {% for message in messages %}
+  <script>
+    alertify.set("notifier", "position", "bottom-center");
+    alertify.success("{{message}}");
+  </script>
+  {% endfor %}
+  <script>
+    // Get the navbar burger and menu elements
+    const navbarBurger = document.querySelector('.navbar-burger');
+    const navbarMenu = document.querySelector('.navbar-menu');
+
+    // Add a click event listener to the navbar burger
+    navbarBurger.addEventListener('click', () => {
+      // Toggle the "is-active" class on the navbar burger
+      navbarBurger.classList.toggle('is-active');
+      // Toggle the "is-active" class on the navbar menu
+      navbarMenu.classList.toggle('is-active');
+    });
+
+  </script>
+</body>
+
+</html>

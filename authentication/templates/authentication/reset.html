@@ -1,0 +1,44 @@
+{% extends 'authentication/base.html' %}
+{% block title %}Reset Password - PyCMS{% endblock %}
+{% block content %}
+<style>
+    .errorlist {
+        color: red;
+        opacity: 50%;
+    }
+</style>
+<section class="hero is-fullheight">
+    <div class="hero-body">
+        <div class="container">
+            <div class="column is-4 is-offset-4">
+                <div class="card">
+                    <div class="card-content">
+                        <h1 class="title has-text-centered">Forgot Password?</h1>
+                        <p style="font-style:italic;">Enter your email address below, and we'll email instructions for
+                            setting a
+                            new
+                            one.</p>
+                        <form method="POST">
+                            {% csrf_token %}
+                            <div class="field">
+                                <label class="label">Email</label>
+                                <div class="control has-icons-left">
+                                    {{form.email}}{{form.email.errors}}
+                                    <span class="icon is-small is-left">
+                                        <i class="fas fa-envelope"></i>
+                                    </span>
+                                </div>
+                            </div>
+                            <div class="field is-centered">
+                                <div class="control has-text-centered">
+                                    <button class="button is-primary">Submit</button>
+                                </div>
+                            </div>
+                        </form>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+</section>
+{% endblock %}

@@ -1,0 +1,35 @@
+{% extends 'authentication/base.html' %}
+{% load markdown %}
+{% load custom_filter %}
+{% block title %}{{post.title}} - PyCMS{% endblock %}
+{% block content %}
+<section>
+    <div class="container">
+        <div class="columns">
+            <div class="column is-three-quarters">
+                <div class="card">
+                    <div class="card-content">
+                        <h1 class="title">{{ post.title }}</h1>
+                        <p>Date created: {{post.created_at|date}}</p>
+                        <p class="is-medium">Author: {{post.author|capfirst}}</p>
+                        <hr>
+                        <p class="content">{{ post.content|md }}</p>
+                    </div>
+                </div>
+            </div>
+            <div class="column is-one-quarter">
+                <div class="card">
+                    <div class="card-content">
+                        <h2 class="subtitle">Recent Posts</h2>
+                        <ul>
+                            {% for post in posts %}
+                            <li><a href="{% url 'post' post.id post.title|slugify %}">{{ post.title }}</a></li>
+                            {% endfor %}
+                        </ul>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+</section>
+{% endblock %}

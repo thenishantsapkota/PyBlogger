@@ -1,0 +1,23 @@
+[tool.poetry]
+name = "py-cms"
+version = "0.1.0"
+description = "A simple CMS written in Django"
+authors = ["Nishant Sapkota <hello@snishant.com.np>"]
+license = "MIT"
+readme = "README.md"
+packages = [{include = "py_cms"}]
+
+[tool.poetry.dependencies]
+python = "^3.11"
+django = "^4.2"
+six = "^1.16.0"
+python-dotenv = "^1.0.0"
+django-markdown = "^0.8.4"
+
+
+[tool.poetry.group.dev.dependencies]
+black = "^23.3.0"
+
+[build-system]
+requires = ["poetry-core"]
+build-backend = "poetry.core.masonry.api"
