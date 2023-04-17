@@ -2,7 +2,7 @@
 {% block title %}Create Blog - PyCMS{% endblock %}
 {% block content %}
 <section class="section">
-    <div class="container">
+    <div class="container is-half-desktop">
         <h1 class="title has-text-centered">Create a new post</h1>
         <form method="post">
             {% csrf_token %}
@@ -18,15 +18,15 @@
                     {{form.content}}{{form.content.errors}}
                 </div>
             </div>
+            <div class="row" aria-disabled="true">
+                <div class="markdown-preview" id="markdown-preview"></div>
+            </div>
             <div class="field">
                 <div class="control">
                     <button class="button is-primary" type="submit">Publish</button>
                 </div>
             </div>
         </form>
-    </div>
-    <div class="row">
-        <div class="markdown-preview" id="markdown-preview"></div>
     </div>
 </section>
 <script>

@@ -5,8 +5,6 @@ from django.views import View
 from .forms import BlogCreateForm
 from .models import Post
 
-# Create your views here.
-
 
 class HomeView(View):
     def get(self, request):
@@ -45,4 +43,8 @@ class BlogView(View):
                     "posts": posts,
                 },
             )
-        return render(request, "blogs/blog.html")
+        return render(request, "blogs/404.html", status=404)
+
+
+def handler404(request, exception):
+    return render(request, "blogs/404.html", status=404)

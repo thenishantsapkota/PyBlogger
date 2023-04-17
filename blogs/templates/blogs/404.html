@@ -1,0 +1,23 @@
+{% extends 'authentication/base.html' %}
+{% block title %} 404 Not Found - PyCMS {% endblock %}
+{% block content %}
+<section class="hero is-fullheight is-bold">
+    <div class="hero-body">
+        <div class="container has-text-centered">
+            <figure>
+                <img height="256" width="256" src="https://cdn.snishant.com.np/r/404.jpg" alt="404">
+            </figure>
+            <h1 class="title is-size-1 has-text-black">
+                404 Not Found
+            </h1>
+            <h2 class="subtitle is-size-3 has-text-black">
+                The requested page was not found.
+            </h2>
+            <a href="{% url 'home' %}" class="button is-primary is-medium">
+                Go back to homepage
+            </a>
+        </div>
+    </div>
+</section>
+
+{% endblock %}
