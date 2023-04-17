@@ -11,7 +11,8 @@
                 <div class="box" style="height: 300px; overflow: hidden;">
                     <h1 class="title">{{ post.title }}</h1>
                     <p class="subtitle">{{ post.created_at|date }}</p>
-                    <p class="subtitle is-size-7">{{ post.created_at|format_datetime}}</p>
+                    <p class="subtitle is-size-7">{{ post.created_at|format_datetime}}<br>Author:
+                        {{post.author|capfirst}}</p>
                     <div class="content">{{ post.content|truncatewords_html:5|md }}</div>
                     <a href="{% url 'post' post.id post.title|slugify %}">Read More</a>
                 </div>

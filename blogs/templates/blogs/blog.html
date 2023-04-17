@@ -12,6 +12,17 @@
                         <h1 class="title">{{ post.title }}</h1>
                         <p>Date created: {{post.created_at|date}}</p>
                         <p class="is-medium">Author: {{post.author|capfirst}}</p>
+                        {% if request.user == post.author %}
+                        <div class="level">
+                            <div class="level-left">
+                                <a href="{% url 'blog-edit' post.id post.title|slugify %}">Edit</a>
+                            </div>
+                            <div class="level-right">
+                                <a class="delete-link" href="{% url 'blog-delete' post.id post.title|slugify %}"
+                                    style="color: red;">Delete</a>
+                            </div>
+                        </div>
+                        {% endif %}
                         <hr>
                         <p class="content">{{ post.content|md }}</p>
                     </div>

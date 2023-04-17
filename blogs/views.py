@@ -1,5 +1,6 @@
 from django.contrib import messages
 from django.shortcuts import redirect, render
+from django.utils.text import slugify
 from django.views import View
 
 from .forms import BlogCreateForm
@@ -8,7 +9,7 @@ from .models import Post
 
 class HomeView(View):
     def get(self, request):
-        posts = Post.objects.all()
+        posts = Post.objects.all().order_by("-created_at")
         return render(request, "blogs/home.html", {"posts": posts})
 
 
@@ -43,6 +44,38 @@ class BlogView(View):
                     "posts": posts,
                 },
             )
+        return render(request, "blogs/404.html", status=404)
+
+
+class BlogEditView(View):
+    form = BlogCreateForm
+
+    def get(self, request, pk, title):
+        post = Post.objects.filter(id=pk).first()
+        if post and request.user == post.author:
+            form = self.form(instance=post)
+            return render(request, "blogs/create_blog.html", {"form": form})
+
+        return render(request, "blogs/404.html", status=404)
+
+    def post(self, request, pk, title):
+        form = self.form(request.POST)
+        post = Post.objects.filter(id=pk).first()
+        if post and request.user == post.author and form.is_valid():
+            post.title = form.data.get("title")
+            post.content = form.data.get("content")
+            post.save()
+            return redirect("post", post.id, slugify(post.title))
+        return render(request, "blogs/404.html", status=404)
+
+
+class BlogDeleteView(View):
+    def get(self, request, pk, title):
+        post = Post.objects.filter(id=pk).first()
+        if post and request.user == post.author:
+            post.delete()
+            messages.success(request, "Post deleted successfully!")
+            return redirect("home")
         return render(request, "blogs/404.html", status=404)
 
 

@@ -91,21 +91,32 @@
   {% for message in messages %}
   <script>
     alertify.set("notifier", "position", "bottom-center");
+    //{% if message.tags == 'success' %}
     alertify.success("{{message}}");
+    //{% elif message.tags == 'error' %}
+    alertify.error("{{message}}");
+    //{% endif %}
   </script>
   {% endfor %}
   <script>
-    // Get the navbar burger and menu elements
     const navbarBurger = document.querySelector('.navbar-burger');
     const navbarMenu = document.querySelector('.navbar-menu');
 
-    // Add a click event listener to the navbar burger
     navbarBurger.addEventListener('click', () => {
-      // Toggle the "is-active" class on the navbar burger
       navbarBurger.classList.toggle('is-active');
-      // Toggle the "is-active" class on the navbar menu
       navbarMenu.classList.toggle('is-active');
     });
+
+    const links = document.getElementsByClassName('delete-link');
+    for (let i = 0; i < links.length; i++) {
+      links[i].addEventListener('click', function (event) {
+        event.preventDefault();
+        const confirmation = confirm('Are you sure you want to delete this blog?');
+        if (confirmation) {
+          window.location.href = this.href;
+        }
+      });
+    }
 
   </script>
 </body>
